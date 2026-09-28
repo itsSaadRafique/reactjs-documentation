@@ -481,3 +481,23 @@ export default App
 
 ```
 __HERE__  the user directly interacts with the input bar. React is not involves.
+
+# 
+
+## Note App
+This project is to practise 
+- form handling 
+- two way binding 
+- useState()
+- .map()
+- tailwindcss
+
+## Feature of Note App
+Note App is a basic application having 
+- heading and body section
+- the note is listed when the add button is clicked
+
+## Result SS
+![NoteApp](<./assets/project noteApp.png>)
+
+#
