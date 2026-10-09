@@ -162,6 +162,68 @@ const  App = () => {
 
 export default App
 ```
+#
+#
+#
+## __Bonus Trick__ (Passing values from Child to Parent)
+There is an advance trick to pass data from child to parent. 
+Consider this concept after practising useState() Hook.
+
+- __Parent = App.jsx__
+```bash 
+import Navbar from './components/Navbar'
+import { useState } from 'react'
+
+const App = () => {
+ 
+  # useState hook 
+  const [theme, setTheme] = useState('light')
+
+  return (
+    <div>
+
+      <h1>The theme is {theme}</h1>
+
+      # here pass variable=theme and its setter fn = setTheme to child component. So the child recieves these values from props and we can change it later.
+      <Navbar theme = {theme} setTheme = {setTheme} />
+
+    </div>
+  )
+}
+
+export default App
+
+```
+- __Child = Navbar.jsx__
+```bash 
+import React from 'react'
+
+# here we recieved theme, and setTheme
+const Navbar = (props) => {
+
+
+    # on button click , the value of theme is changed
+    const changeTheme = ()=>{
+        props.setTheme('dark')
+    }
+
+  return (
+    <div className='navbar'>
+        <button
+        onClick={changeTheme}
+        
+        >Change Theme</button>
+    </div>
+  )
+}
+
+export default Navbar
+```
+
+__Conclusion__:  We can pass the values from child to parent.  
+1. Pass useState's ```theme```, and ```setTheme``` to child.
+2. Child recieves these values and it can be changeable through ```props.setTheme```.
+
 
 #
 # 7. Simple CSS
