@@ -855,3 +855,90 @@ export default Courses
 ```
 #
 #
+# 17- Context API 
+
+## Why we needed it ?  
+So the Drawback of props method is that , it become very messy and hard for developer to manage in long development of APPs . 
+- Like data will transfer from parent to child and so on .
+
+so the solution is Context API.
+
+## Context API 
+The concept of Centralization of data. So every component could easily use it.
+- Step 1 : create ```createContext()```
+- Step 2 : add the data which is expected to use
+- Step 3 : use the data in desired component
+
+__Before Creating Context__
+- Make a file/component (Context.jsx) 
+- Wrap App.jsx around that Context.jsx (Problem: Now the Context.jsx will render but we need it's child (App.jsx) to render . So , in Context.jsx we will add ```{props.children}``` so that App will render)
+
+```bash
+createRoot(document.getElementById('root')).render(
+
+    # wrapping App.jsx
+  <Context>
+    <App />
+  </Context>
+)
+```
+
+```bash 
+const Context = (props) => {
+  return (
+    <div>
+        # targeting children = App.jsx
+        {props.children}
+    </div>
+  )
+}
+
+export default Context
+```
+ 
+## 1: createContext() &  2: passing data
+Create context and add data (in Context.jsx)
+```bash 
+import { createContext } from "react"
+
+# 1 : create context
+export const LogoContext = createContext() 
+
+const Context = (props) => {
+
+  return (
+    <div>
+        # 2 : Passing data = value
+        <LogoContext value='SR'>
+            {props.children}
+        </LogoContext>
+    </div>
+  )
+}
+
+export default Context
+```
+__Now the data can be accessed in any desired component .like here NavRight.jsx need Logo__
+```bash 
+import { useContext } from "react";
+import { LogoContext } from "../contexts/Context";
+
+const NavLeft = () => {
+    # useContext()
+  const data = useContext(LogoContext);
+
+  return (
+    <div className="nav-left">
+      <h1>{data}</h1>
+    </div>
+  );
+};
+
+export default NavLeft;
+```
+# 
+Here you can see LeftNav components accessed and used the data (SR) as logo .
+![Logo-SR](./src/assets/contextAPI.png)
+
+#
+#
