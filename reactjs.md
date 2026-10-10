@@ -693,4 +693,165 @@ __Analysis :__ Referring the above code, the dependency is set for 'a'. So when 
 ```[a,b]``` Only when the state of both 'a' and 'b' changes'
 
 
+# 
+# 16: Routing
+
+Through routing, each time we navigate to different pages , the webpage will not reload . And the url of the webpage will change.
+
+## react-router-dom
+
+React doesn't have built-in routing methods . So , we use `react-router-dom` library.
+
+1. In terminal : `npm i react-router-dom`
+2. Wrap `<App/>` in `<BrowserRouter> <Browser/>` in main.jsx
+3. ` import { Route , Routes } from 'react-router-dom'` in App.jsx and now use can use Routes container.
+4. Using Routes
+
+```bash
+    <Routes>
+        <Route path='/' element={ <Home/> } />
+        <Route path='/about' element={ <About/> } />
+        <Route path='/contact' element={ <Contact/> } />
+
+        <Route path='/product' element={ <Product/> } />
+        # nested of Product (method 1 => not good approach)
+        <Route path='/product/electronics' element={ <Product/> } />
+        <Route path='/product/grocery' element={ <Grocery/> } />
+
+
+        # nested of Product (method 2 => good approach) -> To render , we have to add <Outlet/> on Product.jsx page
+        <Route path='/product' element={ <Product/> }>
+          <Route path='electronics' element={<Electronics/>} />
+          <Route path='grocery' element={<Grocery/>} />
+        <Route/>
+
+
+        # Dynamic Routing
+        Route path='/courses' element={<Courses/>} />
+        # By using ':' All of the Random URLs will show RandomPage with dynamic names . In the page Courses.jsx,  we use Hook "useParams()" to catch that Random url so we can render it with the help of following name "xyz"
+        <Route path="/courses/:xyz" element={<Random/>}/>
+
+
+        # page not found
+        <Route path='*' element={ <NotFound/> } />
+
+
+    </Routes>
+```
+
+5. Creating a navbar for testing some components (home, about, contact).
+
+```bash
+import { Link } from 'react-router-dom'
+
+const Navbar = () => {
+  return (
+    <div className="navbar">
+      <h2>Routing Navbar</h2>
+
+      <div>
+        <Link to="/"> Home </Link>
+        <Link to="/about"> About </Link>
+        <Link to="/contact"> Contact </Link>
+        <Link to="/product"> Product </Link>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+```
+
+- **UI**
+
+![routing-ui](./assets/routing2.png)
+
+**Analysis**  
+When we click on any link (home, about, contact) on navbar then the page will changed
+
+- The URL changes
+- The site not reload
+- THe page changes
+
+#
+
+### Consclusion
+
+**Routing :** The benefit of using routing is to stop to whole site to reload. We use `<Routes> <Routes/>` and `<Link> <Link/>`
+so
+
+- The page doesn't reloads
+
+#
+
+**Traditional Way :** The drawback of using anker tag `<a> <a/>` is
+
+- The whole page reloads
+
+#
+
+### Dynamic Routing and Hook (useParams)
+
+```bash
+# Dynamic Routing
+  Route path='/courses' element={<Courses/>} />
+  # By using ':' All of the Random URLs will show RandomPage with dynamic names . In the page Courses.jsx,  we use Hook "useParams()" to catch that Random url so we can render it with the help of following name "xyz"
+  <Route path="/courses/:xyz" element={<Random/>}/>
+```
+
+- Courses.jsx
+
+```bash
+import { useParams } from "react-router-dom"
+
+const Courses = () => {
+  # hook => userParams
+  let params = useParams()
+
+  return (
+    <div>
+        <h1>{params.id} Courses Page</h1>
+    </div>
+  )
+}
+
+export default Courses
+```
+#
+## Hook: useNavigate
+
+`useNavigate()` is majorly used to navigate
+
+- navigate wrt page visit history ( like back button or forward button)
+- single click to home
+
+```bash
+
+  # define hook
+  const navigate = useNavigate()
+
+  # back button
+  <button
+  onClick={()=>{
+    useNavigate(-1)
+  }}
+  >← Back</button>
+
+
+  # forward button
+  <button
+  onClick={()=>{
+    useNavigate(+1)
+  }}
+  >Forward → </button>
+
+
+  # home button (or desired page)
+  <button
+  onClick={()=>{
+    useNavigate('/')
+  }}
+  > Home </button>
+```
+#
 #
