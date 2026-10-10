@@ -563,3 +563,79 @@ Note App is a basic application having
 ![NoteApp](<./assets/project noteApp.png>)
 
 #
+
+# 13. API Calling
+## Method 1 : Fetch
+
+Fetch method of api calling
+
+```bash
+import { useState } from 'react'
+
+const App = () => {
+
+  const [data, setData] = useState([])
+
+  const getData = async () => {
+    
+    # traditional fetch method
+    const response = await fetch('https://picsum.photos/v2/list')
+
+    setData(response.data)
+    
+  }
+  return (
+    <div>
+      <button onClick={getData}>Get Data</button>
+      <div>
+        {data.map(function(elem,idx){
+
+          return <h3>Hello, {elem.author} {idx}</h3>
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default App
+```
+
+#
+## Method 2 : Axios 
+Calling api using axios method
+
+- First install axios pakages. In terminal ```npm i axios```
+- import ```import axios from 'axios'``` in App.jsx 
+
+```bash
+import axios from 'axios'
+import { useState } from 'react'
+
+const App = () => {
+
+  const [data, setData] = useState([])
+
+  const getData = async () => {
+      
+    # calling through axios method here 
+    const response = await axios.get('https://picsum.photos/v2/list')
+
+    setData(response.data)
+    
+  }
+  return (
+    <div>
+      <button onClick={getData}>Get Data</button>
+      <div>
+        {data.map(function(elem,idx){
+
+          return <h3>Hello, {elem.author} {idx}</h3>
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default App
+```
+#
