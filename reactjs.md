@@ -639,3 +639,58 @@ const App = () => {
 export default App
 ```
 #
+#
+
+# Hook 2: useEffect
+useEffect is a React Hook that lets you synchronize a component with an external system.
+__For Example :__ Suppose there is a road and a footpath. React-Rendering-Process is like Truck which takes whole road. On the other hands , the footpaths stores some ie. functions. The functions in the footpath are waiting for the completion of React-Rendering-Process. After completion of React-Rendering-Process , the functions will execute.
+
+```useEffect(function, dependencies?)```   
+```useEffect(function)```  // This is wrong (no dependencies)
+
+```bash
+import { useEffect, useState } from "react"
+
+const App = () => {
+
+  const [a, setA] = useState(0)
+  const [b, setB] = useState(10)
+
+
+  useEffect(function(){
+    console.log("useEffect is running ...")
+  },[a])  // Here the depency is set for a , so when the state of 'a' change then this function will execute
+
+
+
+  return (
+    <div>
+      <h1>A : {a}</h1>
+      <h1>B : {b}</h1>
+
+      <button 
+      className="btn"
+      onClick={()=>{
+        setA(a+1)
+      }}
+      >Button A</button>
+      
+      <button 
+      onClick={()=>{
+        setB(b+10)
+      }}
+      className="btn">Button B</button>
+    </div>
+  )
+}
+
+export default App
+```
+__Analysis :__ Referring the above code, the dependency is set for 'a'. So when the state of 'a' changes then the 'useEffect' function will execute.  
+```[]``` Dependency : The 'useEffect' funtion will execute for all state changing.  
+```[a]``` Dependency: The 'useEffect' fn execute only when the state of 'a ' will change.  
+```[b]``` Only when 'b' state changes.  
+```[a,b]``` Only when the state of both 'a' and 'b' changes'
+
+
+#
